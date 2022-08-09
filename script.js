@@ -38,4 +38,6 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   return li;
 };
 
+//primeiro commit
+
 window.onload = () => { };
