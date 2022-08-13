@@ -60,9 +60,9 @@ const createProductItemElement = ({ sku, name, image }) => {
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
   return section;
 };
-
+/*
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
-
+*/
 const cartItemClickListener = (event) => {
   const item = event.target;
   item.remove(event);
