@@ -60,9 +60,9 @@ const createProductItemElement = ({ sku, name, image }) => {
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
   return section;
 };
-/*
+
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
-*/
+
 const cartItemClickListener = (event) => {
   const item = event.target;
   item.remove(event);
@@ -91,6 +91,7 @@ const inflate = async () => {
   const data = await fetchProducts('computador');
   data.results.forEach((e) => {
     const element = createProductItemElement({ sku: e.id, name: e.title, image: e.thumbnail });
+    element.classList = 'item';
     products[0].appendChild(element);
     const btn = document.getElementsByClassName('item__add');
     btn[btn.length - 1].addEventListener('click', associateListeners);
