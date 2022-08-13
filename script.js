@@ -5,12 +5,12 @@ const cleamCart = document.getElementsByClassName('empty-cart')[0];
 
 const updateLocalStorage = () => {
   const eCarts = shopCart[0].childNodes;
-  let jsonData = { data: [] };
+  const jsonData = { data: [] };
   eCarts.forEach((e) => {
     jsonData.data.push(e.innerText);
-    localStorage.setItem('item',JSON.stringify(jsonData))
+    localStorage.setItem('item', JSON.stringify(jsonData));
   });
-}
+};
 
 const smartCalc = () => {
   let value = 0;
@@ -21,14 +21,14 @@ const smartCalc = () => {
       if (e.innerText[i] === '$') {
         i = 0;
       } else {
-        acc = `${e.innerText[i]}` + acc;
+        acc = e.innerText[i] + acc;
       }
     }
     value += Number(acc);
-  })
+  });
   subtotal.innerText = `Subtotal: R$ ${Math.round(value * 100) / 100}`;
   updateLocalStorage();
-}
+};
 
 cleamCart.addEventListener('click', () => {
   shopCart[0].innerHTML = '';
@@ -60,13 +60,13 @@ const createProductItemElement = ({ sku, name, image }) => {
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
   return section;
 };
-
+/*
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
-
+*/
 const cartItemClickListener = (event) => {
   const item = event.target;
   item.remove(event);
-  smartCalc()
+  smartCalc();
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -79,14 +79,13 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
 
 const associateListeners = async (evento) => {
   const btnInfo = `${evento.target.parentElement.innerHTML}`;
-  const id = btnInfo.substring(37, 24)
+  const id = btnInfo.substring(37, 24);
   const data = await fetchItem(id);
   const { price, title } = data;
-  const newElement = createCartItemElement({ sku: id, name: title, salePrice: price })
+  const newElement = createCartItemElement({ sku: id, name: title, salePrice: price });
   shopCart[0].appendChild(newElement);
   smartCalc();
-}
-
+};
 
 const inflate = async () => {
   const data = await fetchProducts('computador');
@@ -96,7 +95,7 @@ const inflate = async () => {
     const btn = document.getElementsByClassName('item__add');
     btn[btn.length - 1].addEventListener('click', associateListeners);
   });
-}
+};
 
 inflate();
 window.onload = () => {
@@ -104,7 +103,7 @@ window.onload = () => {
     console.log('não é nulo');
     lstorage = JSON.parse(localStorage.getItem('item'));
     console.log(lstorage);
-    lstorage.data.forEach((e)=>{
+    lstorage.data.forEach((e) => {
       const li = document.createElement('li');
       li.innerText = e;
       li.className = 'cart__item';

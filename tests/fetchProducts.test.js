@@ -22,11 +22,10 @@ describe('1 - Teste a função fetchProducts', () => {
   });
 
   it('Testa o erro se a função for chamada sem parâmetro', async () => {
-   try{
-    await fetchProducts();
-   }catch(e){
-    expect(e.message).toBe('You must provide an url');
-   }
+    try {
+      await fetchProducts();
+    } catch (e) {
+      expect(e.message).toBe('You must provide an url');
+    }
   })
-  
 });
