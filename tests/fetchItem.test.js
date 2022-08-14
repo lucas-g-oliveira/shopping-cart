@@ -26,3 +26,6 @@ describe('2 - Teste a função fetchItem', () => {
   })
 
 });
+
+
+//https://api.mercadolibre.com/items/MLB1341706310

@@ -3,6 +3,24 @@ const shopCart = document.getElementsByClassName('cart__items');
 const subtotal = document.getElementById('subtotal');
 const cleamCart = document.getElementsByClassName('empty-cart')[0];
 
+const createCustomElement = (element, className, innerText) => {
+  const e = document.createElement(element);
+  e.className = className;
+  e.innerText = innerText;
+  return e;
+};
+
+const addLoadingText = () => {
+  const loading = createCustomElement('h3', 'loading', 'carregando...');
+  products[0].appendChild(loading);
+  console.log(products[0]);
+};
+
+const removeLoadingText = () => {
+  const loading = document.getElementsByClassName('loading');
+  loading[0].parentNode.removeChild(loading[0]);
+};
+
 const smartCalc = () => {
   let value = 0;
   const eCarts = shopCart[0].childNodes;
@@ -33,17 +51,9 @@ const createProductImageElement = (imageSource) => {
   return img;
 };
 
-const createCustomElement = (element, className, innerText) => {
-  const e = document.createElement(element);
-  e.className = className;
-  e.innerText = innerText;
-  return e;
-};
-
 const createProductItemElement = ({ sku, name, image }) => {
   const section = document.createElement('section');
   section.className = 'item';
-
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
@@ -80,6 +90,7 @@ const associateListeners = async (evento) => {
 
 const inflate = async () => {
   const data = await fetchProducts('computador');
+  removeLoadingText();
   data.results.forEach((e) => {
     const element = createProductItemElement({ sku: e.id, name: e.title, image: e.thumbnail });
     element.classList = 'item';
@@ -88,7 +99,7 @@ const inflate = async () => {
     btn[btn.length - 1].addEventListener('click', associateListeners);
   });
 };
-
+addLoadingText();
 inflate();
 window.onload = () => {
   if (localStorage.getItem('cartItems') !== undefined) {
