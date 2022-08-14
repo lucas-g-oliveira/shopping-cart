@@ -3,15 +3,6 @@ const shopCart = document.getElementsByClassName('cart__items');
 const subtotal = document.getElementById('subtotal');
 const cleamCart = document.getElementsByClassName('empty-cart')[0];
 
-const updateLocalStorage = () => {
-  const eCarts = shopCart[0].childNodes;
-  const jsonData = { data: [] };
-  eCarts.forEach((e) => {
-    jsonData.data.push(e.innerText);
-    localStorage.setItem('item', JSON.stringify(jsonData));
-  });
-};
-
 const smartCalc = () => {
   let value = 0;
   const eCarts = shopCart[0].childNodes;
@@ -26,13 +17,12 @@ const smartCalc = () => {
     }
     value += Number(acc);
   });
+  saveCartItems(shopCart[0].innerHTML);
   subtotal.innerText = `Subtotal: R$ ${Math.round(value * 100) / 100}`;
-  updateLocalStorage();
 };
 
 cleamCart.addEventListener('click', () => {
   shopCart[0].innerHTML = '';
-  console.log('clicou');
   smartCalc();
 });
 
@@ -67,6 +57,7 @@ const cartItemClickListener = (event) => {
   const item = event.target;
   item.remove(event);
   smartCalc();
+  saveCartItems(shopCart[0].innerHTML);
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -100,19 +91,13 @@ const inflate = async () => {
 
 inflate();
 window.onload = () => {
-  if (localStorage.getItem('cart') !== undefined) {
-    console.log('não é nulo');
-    lstorage = JSON.parse(localStorage.getItem('item'));
-    console.log(lstorage);
-    lstorage.data.forEach((e) => {
-      const li = document.createElement('li');
-      li.innerText = e;
-      li.className = 'cart__item';
-      li.addEventListener('click', cartItemClickListener);
-      shopCart[0].appendChild(li);
+  if (localStorage.getItem('cartItems') !== undefined) {
+    shopCart[0].innerHTML = getSavedCartItems('cartItems');
+    shopCart[0].childNodes.forEach((e) => {
+      e.addEventListener('click', cartItemClickListener);
     });
     smartCalc();
   } else {
-    localStorage.setItem('cart', '');
+    localStorage.setItem('cartItems', '');
   }
 };
