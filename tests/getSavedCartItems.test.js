@@ -19,12 +19,12 @@ describe('4 - Teste a função getSavedCartItems', () => {
   });
 
   it('Testa se ocorre um erro ao chamar a função sem parâmetro', () => {
-    expect(()=> getSavedCartItems()).toThrow()
+    expect(() => getSavedCartItems()).toThrow()
   })
 
-  it('Testa a mensaagem de erro caso não receba nenhum parâmetro', async () => {
+  it('Testa a mensaagem de erro caso não receba nenhum parâmetro', () => {
     try {
-      await getSavedCartItems();
+      getSavedCartItems();
     } catch (err) {
       expect(err.message).toBe('parameter is not defined');
     }

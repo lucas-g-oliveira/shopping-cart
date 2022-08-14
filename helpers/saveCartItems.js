@@ -2,11 +2,7 @@ const saveCartItems = (shopCart) => {
   if (shopCart === undefined) {
     throw new Error('parameter is not defined');
   }
-  try {
-    localStorage.setItem('cartItems', shopCart);
-  } catch (err) {
-    return err.message;
-  }
+  localStorage.setItem('cartItems', shopCart);
 };
 
 if (typeof module !== 'undefined') {
