@@ -1,11 +1,6 @@
 const products = document.getElementsByClassName('items');
 const shopCart = document.getElementsByClassName('cart__items');
-const subtotal = document.getElementById('subtotal');
 const cleamCart = document.getElementsByClassName('empty-cart')[0];
-
-/*
-const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
-*/
 
 const createCustomElement = (element, className, innerText) => {
   const e = document.createElement(element);
@@ -15,26 +10,13 @@ const createCustomElement = (element, className, innerText) => {
 };
 
 const withDec = (n) => Math.round((Number(n) + Number.EPSILON) * 100) / 100;
+withDec(12.02);
 
-const smartCalc = async () => {
-  const value = [];
-  const eCarts = shopCart[0].childNodes;
-  eCarts.forEach(async (e) => {
-    const id = e.innerText.substring(5, 18);
-    const valor = await fetchItem(id);
-    value.push(valor.price);
-    if (value.length === eCarts.length) {
-      saveCartItems(shopCart[0].innerHTML);
-      subtotal.innerText = withDec(
-        value
-        .reduce((acc, crr) => withDec(acc) + withDec(crr), 0)
-      );
-    }
-  });
-  if (eCarts.length === 0) {
-    saveCartItems(shopCart[0].innerHTML);
-    subtotal.innerText = Number(0);
-  }
+const createProductImageElement = (imageSource) => {
+  const img = document.createElement('img');
+  img.className = 'item__image';
+  img.src = imageSource;
+  return img;
 };
 
 const addLoadingText = () => {
@@ -45,20 +27,11 @@ const addLoadingText = () => {
 const removeLoadingText = () => {
   const loading = document.getElementsByClassName('loading');
   loading[0].parentNode.removeChild(loading[0]);
-  smartCalc();
 };
 
 cleamCart.addEventListener('click', () => {
-  shopCart[0].innerHTML = ``;
-  smartCalc();
+  shopCart[0].innerHTML = '';
 });
-
-const createProductImageElement = (imageSource) => {
-  const img = document.createElement('img');
-  img.className = 'item__image';
-  img.src = imageSource;
-  return img;
-};
 
 const createProductItemElement = ({ sku, name, image }) => {
   const section = document.createElement('section');
@@ -71,9 +44,9 @@ const createProductItemElement = ({ sku, name, image }) => {
 };
 
 const cartItemClickListener = (event) => {
+  console.log('remove item dentro do carrinho');
   const item = event.target;
   item.remove(event);
-  smartCalc();
   saveCartItems(shopCart[0].innerHTML);
 };
 
@@ -86,21 +59,18 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
 };
 
 const associateListeners = async (evento) => {
-  const btnInfo = `${evento.target.parentElement.innerHTML}`;
-  const id = btnInfo.substring(37, 24);
-  const data = await fetchItem(id);
-  const { price, title } = data;
+  const id = `${evento.target.parentElement.querySelector('.item__sku').innerText}`;
+  console.log('adidiona ao carrinho');
+  const { price, title } = await fetchItem(id);
   const newElement = createCartItemElement({ sku: id, name: title, salePrice: price });
   shopCart[0].appendChild(newElement);
-  smartCalc();
 };
 
-const inflate = async () => {
+const loadingPageProducts = async () => {
   const data = await fetchProducts('computador');
   removeLoadingText();
   data.results.forEach((e) => {
     const element = createProductItemElement({ sku: e.id, name: e.title, image: e.thumbnail });
-    element.classList = 'item';
     products[0].appendChild(element);
     const btn = document.getElementsByClassName('item__add');
     btn[btn.length - 1].addEventListener('click', associateListeners);
@@ -108,8 +78,7 @@ const inflate = async () => {
 };
 
 addLoadingText();
-
-inflate();
+loadingPageProducts();
 
 window.onload = () => {
   if (localStorage.getItem('cartItems') !== undefined) {
@@ -117,7 +86,7 @@ window.onload = () => {
     shopCart[0].childNodes.forEach((e) => {
       e.addEventListener('click', cartItemClickListener);
     });
-  }else{
+  } else {
     shopCart[0].innerHTML = '';
   }
 };
