@@ -23,20 +23,20 @@
     <div class="container-title">
       <span class="title"><strong>trybe</strong>shopping</span>
     </div>
-    <i class="material-icons" style="font-size:45px;color:white">shopping_cart</i>
+    <i class="material-icons" style="font-size:45px;color:white;float: left;">
+      shopping_cart <span id="qtd_cart"><strong></strong></span></i>
     <div class="container-cartTitle">
       <span class="cart__title">Meu carrinho</span>
     </div>
   </header>
+
   <section class="container">
     <section class="items"></section>
     <section class="cart">
       <ol class="cart__items"></ol>
-      <div>
+      <div class="subtotal-div">
         Total: R$ <strong id="subtotal" class="total-price"></strong>
       </div>
-
-
       </br>
       <button class="empty-cart">Esvaziar carrinho</button>
     </section>

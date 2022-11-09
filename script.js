@@ -1,6 +1,19 @@
 const products = document.getElementsByClassName('items');
 const shopCart = document.getElementsByClassName('cart__items');
 const cleamCart = document.getElementsByClassName('empty-cart')[0];
+const btn = document.getElementsByClassName('item__add');
+const totalCartPrice = document.getElementById('subtotal');
+const qtdCart = document.getElementById('qtd_cart');
+
+shopCart[0].innerHTML = '';
+
+const saveStorage = ()=>{
+  if(shopCart[0].length === 0){
+    saveCartItems('');
+  }else{
+    saveCartItems(shopCart[0].innerHTML);
+  }
+}
 
 const createCustomElement = (element, className, innerText) => {
   const e = document.createElement(element);
@@ -11,6 +24,28 @@ const createCustomElement = (element, className, innerText) => {
 
 const withDec = (n) => Math.round((Number(n) + Number.EPSILON) * 100) / 100;
 withDec(12.02);
+
+const calcSalesCart = async () => {
+  const listItens = shopCart[0].childNodes;
+  const listValues = [];
+  if (listItens.length > 0) {
+    listItens.forEach(async (e) => {
+      const id = e.innerText.substring(5, 19);
+      const itemAsync = await fetchItem(id);
+      listValues.push(itemAsync.price);
+      if (listValues.length === listItens.length) {
+        totalCartPrice.innerText = Math.round(listValues
+          .reduce((acc, curr) => acc + curr, 0) * 100) / 100;
+      }
+    });
+  } else {
+    totalCartPrice.innerHTML = 0;
+  }
+  saveStorage();
+  qtdCart.innerText = listItens.length;
+};
+
+//calcSalesCart();
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -31,6 +66,7 @@ const removeLoadingText = () => {
 
 cleamCart.addEventListener('click', () => {
   shopCart[0].innerHTML = '';
+  calcSalesCart();
 });
 
 const createProductItemElement = ({ sku, name, image }) => {
@@ -48,6 +84,7 @@ const cartItemClickListener = (event) => {
   const item = event.target;
   item.remove(event);
   saveCartItems(shopCart[0].innerHTML);
+  calcSalesCart();
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -64,6 +101,7 @@ const associateListeners = async (evento) => {
   const { price, title } = await fetchItem(id);
   const newElement = createCartItemElement({ sku: id, name: title, salePrice: price });
   shopCart[0].appendChild(newElement);
+  calcSalesCart();
 };
 
 const loadingPageProducts = async () => {
@@ -72,21 +110,18 @@ const loadingPageProducts = async () => {
   data.results.forEach((e) => {
     const element = createProductItemElement({ sku: e.id, name: e.title, image: e.thumbnail });
     products[0].appendChild(element);
-    const btn = document.getElementsByClassName('item__add');
     btn[btn.length - 1].addEventListener('click', associateListeners);
   });
+  calcSalesCart();
 };
 
 addLoadingText();
 loadingPageProducts();
 
 window.onload = () => {
-  if (localStorage.getItem('cartItems') !== undefined) {
-    shopCart[0].innerHTML = getSavedCartItems('cartItems');
-    shopCart[0].childNodes.forEach((e) => {
-      e.addEventListener('click', cartItemClickListener);
-    });
-  } else {
-    shopCart[0].innerHTML = '';
-  }
+  shopCart[0].innerHTML = getSavedCartItems('cartItems');
+  calcSalesCart();
+  shopCart[0].childNodes.forEach((e) => {
+    e.addEventListener('click', cartItemClickListener);
+  });
 };

@@ -7,7 +7,50 @@
 
 body {
   background-color: rgb(246, 246, 246);
+  height: 700px;
 }
+
+.cart__item{
+  margin: 5px;
+  background-color: rgb(186, 253, 186);
+  font-size: 13px;
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  background-color: rgb(3, 52, 45);
+}
+
+.item__title{
+  background-color: white;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+.search{
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  justify-self: center;
+  border: solid black 1px;
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+}
+
+#qtd_cart{
+  display: flex;
+  flex-direction: row;
+  background-color: red;
+  border-radius: 50%;
+  float:left;
+  font-size: 12px;
+  padding: 5px;
+  margin-left: 30px;
+  margin-top: -50px;
+  position: relative;
+  z-index: 0;
+}
+
 
 .header {
   position: relative;
@@ -75,31 +118,39 @@ body {
 
 .container {
   display: flex;
+  flex-wrap: initial;
   justify-content: space-around;
   width: 100%;
+  background-color: gray;
+  height: 940px;
+  overflow: hidden;
+  justify-content: center;
+  background-color: rgb(246, 246, 246);
 }
 
 .title strong {
   color: white;
 }
 
-.items {
+section > .items {
   display: flex;
   flex-basis: 70%;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 40px 0;
+  overflow-y: scroll;
+  
 }
 
 .item {
+  font-size: 15px;
   display: flex;
   flex-direction: column;
   height: auto;
-  margin: 5px;
+  margin: 6px;
+  border: solid 2px rgb(206, 206, 206);
   width: 200px;
-  border: 2px solid rgb(234, 234, 233);
-  border-radius: 5px;
   box-sizing: border-box;
+  border-radius: 30px;
 }
 
 .item .item__sku {
@@ -125,25 +176,53 @@ body {
   margin: 0;
   padding: 10px;
   color: white;
+  border-end-start-radius: 30px;
+  border-end-end-radius: 30px;
 }
 
 .cart {
   display: flex;
   flex-basis: 32%;
-  flex-flow: column wrap;
+  flex-flow: column;
   background-color: rgb(241, 241, 238);
   height: 100vh;
+  border: solid 1px rgb(10, 118, 79);
 }
 
 .cart .cart__items {
-  height: 500px;
+  height: 700px;
   overflow-y: scroll;
 }
 
 .empty-cart {
   width: 170px;
   height: 35px;
-  margin: 0 auto;
-  border: 2px solid rgb(5, 52, 219);
+  margin-inline: auto;
+  border: 4px solid rgb(5, 52, 219);
   background-color: rgb(249, 249, 246);
+}
+
+.subtotal-div{
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  padding: 10px;
+  margin: 10px;
+  background-color: yellow;
+  border-radius: 10px;
+}
+
+.items{
+  background-color: antiquewhite;
+  height: 900px;
+}
+
+.cart__items{
+  border: solid 1px rgb(134, 134, 134);
+  padding: 2px;
+  background-color: antiquewhite;
+}
+
+::-webkit-scrollbar{
+  display: none;
 }
