@@ -7,13 +7,13 @@ const qtdCart = document.getElementById('qtd_cart');
 
 shopCart[0].innerHTML = '';
 
-const saveStorage = ()=>{
-  if(shopCart[0].length === 0){
+const saveStorage = () => {
+  if (shopCart[0].length === 0) {
     saveCartItems('');
-  }else{
+  } else {
     saveCartItems(shopCart[0].innerHTML);
   }
-}
+};
 
 const createCustomElement = (element, className, innerText) => {
   const e = document.createElement(element);
@@ -44,8 +44,6 @@ const calcSalesCart = async () => {
   saveStorage();
   qtdCart.innerText = listItens.length;
 };
-
-//calcSalesCart();
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
