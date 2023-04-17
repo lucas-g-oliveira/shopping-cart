@@ -1,9 +1,14 @@
 # Carrinho de Compras
 
+#### Javascript | HTML | DOM | CSS | API | LocalStorage | Jest
+
 ## Objetivos:
+
+O projeto consiste em consumir uma API de produtos do Mercado Livre, e exibí-los na tela como em um ecommerce, e permitindo que fosse possível adicionar e remover itens do carrinho, e utilizando o localStorage do navegador. Além disso, consiste também em praticar os conhecimentos adiquiridos sobre testes automatizados e o conceito de TDD (Test Driven Development).
+
 <section>
 - Praticar testes em unitários
-</br> - Praticar aprendizados em oerações asincronas
+</br> - Praticar aprendizados em operações assíncronas
 </br> - Praticar aprendizados sobre consumo de APIs
 </br> - Praticar aprendizados em DOM
 </br> - Praticar aprendizados em CSS
@@ -30,9 +35,9 @@
 
 ## Créditos:
 
-- Desenvolvido por mim: Considere desenvolvido por mim, o que está estridamente descrito nos requisitos alcançados acima. 
+- Desenvolvido por mim: O conteúdo nescessário para alcançar os requisitos.
 
-- Desenvolvido pela Trybe: Todos os demais arquivos, funções e testes não solicitados como requisitos do projeto.
+- Desenvolvido pela Trybe: Arquivos e scripts de configuração e testes cypress.
 
 
 <!-- ## Preview:
