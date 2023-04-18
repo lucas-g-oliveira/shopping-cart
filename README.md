@@ -2,6 +2,8 @@
 
 #### Javascript | HTML | DOM | CSS | API | LocalStorage | Jest
 
+ <img src="images/preview.png" width="900px" >
+
 ## Objetivos:
 
 O projeto consiste em consumir uma API de produtos do Mercado Livre, e exibí-los na tela como em um ecommerce, e permitindo que fosse possível adicionar e remover itens do carrinho, e utilizando o localStorage do navegador. Além disso, consiste também em praticar os conhecimentos adiquiridos sobre testes automatizados e o conceito de TDD (Test Driven Development).
@@ -38,10 +40,3 @@ O projeto consiste em consumir uma API de produtos do Mercado Livre, e exibí-lo
 - Desenvolvido por mim: O conteúdo nescessário para alcançar os requisitos.
 
 - Desenvolvido pela Trybe: Arquivos e scripts de configuração e testes cypress.
-
-
-<!-- ## Preview:
-
- <img src="images/preview.png" width="900px" > -->
-
-
