@@ -8,6 +8,8 @@
 
 O projeto consiste em consumir uma API de produtos do Mercado Livre, e exibí-los na tela como em um ecommerce, e permitindo que fosse possível adicionar e remover itens do carrinho, e utilizando o localStorage do navegador. Além disso, consiste também em praticar os conhecimentos adiquiridos sobre testes automatizados e o conceito de TDD (Test Driven Development).
 
+Esse foi um dos meus primeiros projetos em HTML, CSS e Javascript. Mas gosto de mantê-lo aqui para dar contraste com os mais recentes. <br>
+#### Você pode testa-lo <a href="https://lucas-g-oliveira.github.io/shopping-cart/" target="_black">aqui</a>
 <section>
 - Praticar testes em unitários
 </br> - Praticar aprendizados em operações assíncronas
